@@ -1,0 +1,6 @@
+---
+- hosts: stopped
+  connection: local
+  tasks:
+    - name: start the virtual machines
+      vm_status: vmxfile="{{ vmxfile }}" state=running
