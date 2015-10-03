@@ -77,11 +77,13 @@ def print_full_inventory(vms):
         vmhosts.append(vm["name"])
         if vm["state"] == "running":
             running.append(vm["name"])
+            state = "running"
         else:
             stopped.append(vm["name"])
-        vmxdict = { "vmxfile" : vm["vmxfile"] }
+            state = "stopped"
+        vmxdict = { "vmxfile" : vm["vmxfile"], "state" : state }
         hostvars[vm["name"]] = vmxdict
-        
+
     inventory["allvms"] = { "hosts" : vmhosts }
     inventory["running"] = { "hosts" : running }
     inventory["stopped"] = { "hosts" : stopped }
@@ -117,4 +119,4 @@ if args.host is not None:
     print_host_inventory(vms, args.host)
 else:
     print_full_inventory(vms)
-    
+
